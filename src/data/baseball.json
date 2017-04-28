@@ -1,0 +1,62 @@
+[
+{"name":"Arizona Diamondbacks","established":1998,"games":3078,"wins":1503,"losses":1575,"division_titles":5,"pennants":1,"world_series":1,"playoffs":5,"players":429,"hall_of_famers":2,"runs":13905,"at_bats":105358,"hits":27215,"home_runs":3177,"era":4.27}
+,
+{"name":"Atlanta Braves","established":1876,"games":21023,"wins":10438,"losses":10432,"division_titles":17,"pennants":17,"world_series":3,"playoffs":23,"players":1942,"hall_of_famers":51,"runs":93401,"at_bats":719934,"hits":187122,"home_runs":13311,"era":3.65}
+,
+{"name":"Baltimore Orioles","established":1901,"games":18120,"wins":8592,"losses":9418,"division_titles":9,"pennants":7,"world_series":3,"playoffs":13,"players":1780,"hall_of_famers":28,"runs":78127,"at_bats":615418,"hits":159295,"home_runs":12885,"era":4}
+,
+{"name":"Boston Red Sox","established":1901,"games":18107,"wins":9317,"losses":8707,"division_titles":8,"pennants":13,"world_series":8,"playoffs":22,"players":1766,"hall_of_famers":36,"runs":84200,"at_bats":619261,"hits":165515,"home_runs":13091,"era":3.9}
+,
+{"name":"Chicago Cubs","established":1876,"games":21056,"wins":10711,"losses":10188,"division_titles":6,"pennants":17,"world_series":3,"playoffs":18,"players":2029,"hall_of_famers":44,"runs":96851,"at_bats":721396,"hits":189539,"home_runs":13729,"era":3.68}
+,
+{"name":"Chicago White Sox","established":1901,"games":18116,"wins":9082,"losses":8931,"division_titles":5,"pennants":6,"world_series":3,"playoffs":9,"players":1722,"hall_of_famers":29,"runs":78916,"at_bats":613440,"hits":159816,"home_runs":10960,"era":3.75}
+,
+{"name":"Cincinnati Reds","established":1882,"games":20642,"wins":10389,"losses":10117,"division_titles":10,"pennants":10,"world_series":5,"playoffs":15,"players":1942,"hall_of_famers":35,"runs":92690,"at_bats":704208,"hits":184180,"home_runs":12814,"era":3.72}
+,
+{"name":"Cleveland Indians","established":1901,"games":18119,"wins":9191,"losses":8837,"division_titles":8,"pennants":6,"world_series":2,"playoffs":12,"players":1844,"hall_of_famers":31,"runs":81893,"at_bats":618090,"hits":164290,"home_runs":12518,"era":3.84}
+,
+{"name":"Colorado Rockies","established":1993,"games":3826,"wins":1784,"losses":2042,"division_titles":0,"pennants":1,"world_series":0,"playoffs":3,"players":538,"hall_of_famers":0,"runs":19357,"at_bats":131814,"hits":36285,"home_runs":4324,"era":4.99}
+,
+{"name":"Detroit Tigers","established":1901,"games":18145,"wins":9171,"losses":8881,"division_titles":7,"pennants":11,"world_series":4,"playoffs":16,"players":1642,"hall_of_famers":21,"runs":83969,"at_bats":619259,"hits":164569,"home_runs":13371,"era":3.96}
+,
+{"name":"Houston Astros","established":1962,"games":8786,"wins":4290,"losses":4491,"division_titles":7,"pennants":1,"world_series":0,"playoffs":10,"players":869,"hall_of_famers":8,"runs":36507,"at_bats":297918,"hits":75634,"home_runs":6734,"era":3.82}
+,
+{"name":"Kansas City Royals","established":1969,"games":7639,"wins":3704,"losses":3933,"division_titles":8,"pennants":4,"world_series":2,"playoffs":9,"players":835,"hall_of_famers":4,"runs":33657,"at_bats":261929,"hits":69410,"home_runs":5760,"era":4.19}
+,
+{"name":"Los Angeles Angels of Anaheim","established":1961,"games":8945,"wins":4477,"losses":4465,"division_titles":9,"pennants":1,"world_series":1,"playoffs":10,"players":995,"hall_of_famers":10,"runs":38670,"at_bats":303884,"hits":78399,"home_runs":7668,"era":3.94}
+,
+{"name":"Los Angeles Dodgers","established":1884,"games":20442,"wins":10672,"losses":9633,"division_titles":15,"pennants":22,"world_series":6,"playoffs":30,"players":1796,"hall_of_famers":49,"runs":91415,"at_bats":696786,"hits":182365,"home_runs":12271,"era":3.54}
+,
+{"name":"Miami Marlins","established":1993,"games":3819,"wins":1793,"losses":2026,"division_titles":0,"pennants":2,"world_series":2,"playoffs":2,"players":523,"hall_of_famers":2,"runs":16335,"at_bats":130058,"hits":33558,"home_runs":3418,"era":4.25}
+,
+{"name":"Milwaukee Brewers","established":1969,"games":7647,"wins":3642,"losses":4001,"division_titles":3,"pennants":1,"world_series":0,"playoffs":4,"players":841,"hall_of_famers":5,"runs":33835,"at_bats":260067,"hits":67166,"home_runs":7143,"era":4.19}
+,
+{"name":"Minnesota Twins","established":1901,"games":18129,"wins":8639,"losses":9381,"division_titles":10,"pennants":6,"world_series":3,"playoffs":14,"players":1625,"hall_of_famers":23,"runs":79275,"at_bats":618586,"hits":162711,"home_runs":10379,"era":3.98}
+,
+{"name":"New York Mets","established":1962,"games":8778,"wins":4215,"losses":4555,"division_titles":6,"pennants":5,"world_series":2,"playoffs":8,"players":1026,"hall_of_famers":15,"runs":35745,"at_bats":297212,"hits":74358,"home_runs":7035,"era":3.75}
+,
+{"name":"New York Yankees","established":1903,"games":17820,"wins":10084,"losses":7648,"division_titles":18,"pennants":40,"world_series":27,"playoffs":52,"players":1637,"hall_of_famers":40,"runs":86388,"at_bats":607945,"hits":162121,"home_runs":15401,"era":3.64}
+,
+{"name":"Oakland Athletics","established":1901,"games":18081,"wins":8759,"losses":9235,"division_titles":16,"pennants":15,"world_series":9,"playoffs":26,"players":1912,"hall_of_famers":39,"runs":79889,"at_bats":613357,"hits":158724,"home_runs":12589,"era":3.97}
+,
+{"name":"Philadelphia Phillies","established":1883,"games":20451,"wins":9598,"losses":10741,"division_titles":12,"pennants":7,"world_series":2,"playoffs":14,"players":2006,"hall_of_famers":33,"runs":90608,"at_bats":700318,"hits":182846,"home_runs":12664,"era":3.97}
+,
+{"name":"Pittsburgh Pirates","established":1882,"games":20602,"wins":10319,"losses":10146,"division_titles":9,"pennants":9,"world_series":5,"playoffs":17,"players":1926,"hall_of_famers":40,"runs":92126,"at_bats":706669,"hits":186945,"home_runs":11088,"era":3.71}
+,
+{"name":"San Diego Padres","established":1969,"games":7652,"wins":3540,"losses":4110,"division_titles":5,"pennants":2,"world_series":0,"playoffs":5,"players":950,"hall_of_famers":11,"runs":30672,"at_bats":259088,"hits":64849,"home_runs":5825,"era":3.93}
+,
+{"name":"San Francisco Giants","established":1883,"games":20523,"wins":10951,"losses":9415,"division_titles":8,"pennants":23,"world_series":8,"playoffs":25,"players":1735,"hall_of_famers":57,"runs":95348,"at_bats":701028,"hits":185301,"home_runs":14254,"era":3.56}
+,
+{"name":"Seattle Mariners","established":1977,"games":6357,"wins":2984,"losses":3371,"division_titles":3,"pennants":0,"world_series":0,"playoffs":4,"players":759,"hall_of_famers":5,"runs":28258,"at_bats":217536,"hits":56666,"home_runs":6199,"era":4.32}
+,
+{"name":"St. Louis Cardinals","established":1882,"games":20647,"wins":10657,"losses":9839,"division_titles":13,"pennants":23,"world_series":11,"playoffs":28,"players":2075,"hall_of_famers":44,"runs":94722,"at_bats":708602,"hits":188931,"home_runs":11688,"era":3.67}
+,
+{"name":"Tampa Bay Rays","established":1998,"games":3076,"wins":1420,"losses":1656,"division_titles":2,"pennants":1,"world_series":0,"playoffs":4,"players":403,"hall_of_famers":1,"runs":13531,"at_bats":104826,"hits":26905,"home_runs":3039,"era":4.42}
+,
+{"name":"Texas Rangers","established":1961,"games":8932,"wins":4277,"losses":4649,"division_titles":7,"pennants":2,"world_series":0,"playoffs":8,"players":1063,"hall_of_famers":5,"runs":40144,"at_bats":305448,"hits":79465,"home_runs":8657,"era":4.24}
+,
+{"name":"Toronto Blue Jays","established":1977,"games":6358,"wins":3167,"losses":3188,"division_titles":6,"pennants":2,"world_series":2,"playoffs":6,"players":709,"hall_of_famers":6,"runs":29471,"at_bats":218280,"hits":57195,"home_runs":6636,"era":4.2}
+,
+{"name":"Washington Nationals","established":1969,"games":7644,"wins":3705,"losses":3935,"division_titles":4,"pennants":0,"world_series":0,"playoffs":4,"players":883,"hall_of_famers":5,"runs":31577,"at_bats":258678,"hits":65568,"home_runs":6248,"era":3.86}
+
+]
