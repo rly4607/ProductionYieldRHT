@@ -2,6 +2,7 @@ var React = require('react')
 
 var ReactChartJS = require('react-chartjs-2')
 var {Pie} = ReactChartJS
+var {Bar} = ReactChartJS
 
 var Failure = require('./Failure')
 
@@ -38,10 +39,10 @@ var ProdYieldChart = React.createClass({
   getInitialState: function() {
     return {
       query: "Loading...",
-      startDate: "1/1/2000",
-      finishDate: "1/1/2100",
-      tempStart: "1/1/2000",
-      tempFinish: "1/1/2100"
+      startDate: "1/1/2010",
+      finishDate: "1/1/2020",
+      tempStart: "1/1/2010",
+      tempFinish: "1/1/2020"
     }
   },
   render: function() {
@@ -85,7 +86,6 @@ var ProdYieldChart = React.createClass({
     window.DateRange = DateRange
 
     const MenuOptions = ProductTypes.unique()
-    const DateOptions = DateRange.unique()
 
     if(this.state.query === "Loading...") {
       var testCase = MenuOptions[0];
@@ -97,25 +97,46 @@ var ProdYieldChart = React.createClass({
     var startDateData = new Date(this.state.startDate)
     var finishDateData = new Date(this.state.finishDate)
 
-    var Pass = FilteredData.reduce(function(count, testItem) {
-      return count + ((testItem["Pass / Fail"] === 'Pass') && (testItem["Part Number"] === testCase) && (testItem.DateData.getTime() >= startDateData.getTime()) && (testItem.DateData.getTime() <= finishDateData.getTime()))
-    }, 0)
-    var Fail = FilteredData.reduce(function(count, testItem) {
-      return count + ((testItem["Pass / Fail"] === 'Fail') && (testItem["Part Number"] === testCase) && (testItem.DateData.getTime() >= startDateData.getTime()) && (testItem.DateData.getTime() <= finishDateData.getTime()))
-    }, 0)
+    const Day = 86400000;
+    var numDays = (finishDateData.getTime()-startDateData.getTime())/Day;
+
+    var DateArray = []
+    var BarFailures = []
+    k = 0;
+
+    for (i=0; i<=numDays; i++) {
+      DateArray[i] = new Date();
+      DateArray[i].setTime(startDateData.getTime() + i*Day);
+      BarFailures[i] = 0;
+      for(k=0; k<FilteredData.length; k++) {
+        if((DateArray[i].getTime() === FilteredData[k].DateData.getTime()) && (FilteredData[k]["Pass / Fail"] === 'Fail') && (FilteredData[k]["Part Number"] === testCase)) {
+          BarFailures[i]++;
+        }
+      }
+    }
+
+    window.DateArray = DateArray
+
+  //  console.log("StartTime: ", startDateData.getTime(), " FinishTime: ", finishDateData.getTime(), " Num Days = ", numDays)
 
     k=0;
     var FailArray = [];
+    var Pass = 0;
+    var Fail = 0;
 
     for (i=0; i<FilteredData.length; i++) {
       if((FilteredData[i]["Part Number"] === testCase) && (FilteredData[i].DateData.getTime() >= startDateData.getTime()) && (FilteredData[i].DateData.getTime() <= finishDateData.getTime())) {
         if(FilteredData[i]["Pass / Fail"] === 'Fail') {
           FailArray[k]=FilteredData[i];
-          console.log("FailArray[", k, "] is ", FailArray[k])
           k++;
+          Fail++;
+        }
+        else {
+          Pass++;
         }
       }
     }
+
 
     var PassLabel = "Pass: " + Math.round((Pass/(Pass+Fail))*100) + "%"
     var FailLabel = "Fail: " + Math.round((Fail/(Pass+Fail))*100) + "%"
@@ -142,7 +163,34 @@ var ProdYieldChart = React.createClass({
 
     var ChartOptions = {}
 
-    console.log("States... Query: ", this.state.query, " startDate: ", this.state.startDate, " finishDate: ", this.state.finishDate)
+    var barData = {
+      labels: DateArray,
+      datasets: [
+        {
+          label: 'Date',
+          backgroundColor: 'rgba(255,99,132,0.2)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          fontSize: 8,
+          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: BarFailures
+        }
+      ]
+    }
+
+    var barOptions = {
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          ticks: {
+            fontSize: 7
+          }
+        }]
+      }
+    }
+
+    // console.log("States... Query: ", this.state.query, " startDate: ", this.state.startDate, " finishDate: ", this.state.finishDate)
 
     return (
       <div className="row">
@@ -171,6 +219,8 @@ var ProdYieldChart = React.createClass({
         </div>
         <div className="map col-sm-8">
           <Pie data={data} height={150} options={ChartOptions} />
+          <br />
+          <Bar data={barData} height={150} options={barOptions} />
         </div>
       </div>
     )
