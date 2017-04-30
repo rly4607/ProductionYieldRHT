@@ -40,17 +40,19 @@ var ProdYieldChart = React.createClass({
     })
   },
   getInitialState: function() {
+    var TodaysDate = new Date(Date());
+
     return {
       query: "Loading...",
       startDate: "1/1/2014",
-      finishDate: "4/30/2017",
+      finishDate: TodaysDate.getMonth()+1 + "/" + TodaysDate.getDate() + "/" + (TodaysDate.getYear()+1900),
       tempStart: "1/1/2014",
-      tempFinish: "4/30/2017"
+      tempFinish: TodaysDate.getMonth()+1 + "/" + TodaysDate.getDate() + "/" + (TodaysDate.getYear()+1900),
     }
   },
   render: function() {
 
-    // Filter out blank rows from JSON data
+    // Find unique values in data using the following funtions:
 
     Array.prototype.contains = function(v) {
         for(var i = 0; i < this.length; i++) {
@@ -69,6 +71,8 @@ var ProdYieldChart = React.createClass({
         return arr;
     }
 
+    // Filter out blank rows in JSON data:
+
     var FilteredData = [0]
     var ProductTypes = [0]
     var DateRange = [0]
@@ -85,24 +89,29 @@ var ProdYieldChart = React.createClass({
       }
     }
 
-    window.FilteredData = FilteredData
-    window.DateRange = DateRange
 
-    const MenuOptions = ProductTypes.unique()
+    // Create the dropdown menu options by filtering on unique entries:
+
+    var ProductsUnique = ProductTypes.unique()
+    var MenuOptions = []
+
+    for (i=0; i<ProductsUnique.length; i++) {
+      MenuOptions[i] = {value: ProductsUnique[i], label: ProductsUnique[i]};
+    }
 
     if(this.state.query === "Loading...") {
-      var testCase = MenuOptions[0];
+      var testCase = MenuOptions[0].value;
     }
     else {
       testCase = this.state.query;
     }
 
+    // Set start and finish date for data search:
+
     var startDateData = new Date(this.state.startDate)
     var finishDateData = new Date(this.state.finishDate)
 
-    const Day = 86400000;
-    const Month = Day*31;
-    const Year = Day*366;
+    const Day = 86400000;  // Number of milliseconds in a day
     var numDays = Math.round((finishDateData.getTime()-startDateData.getTime())/Day);
 
     var DateArray = [];
@@ -122,7 +131,7 @@ var ProdYieldChart = React.createClass({
     var numYears = YearUnique.length;
     var numMonths = MonthUnique.length;
 
-    console.log("Number of years: ", numYears, "Number of Months: ", numMonths, "Number of Days: ", numDays)
+//    console.log("Number of years: ", numYears, "Number of Months: ", numMonths, "Number of Days: ", numDays)
 
     var MonthText= new Array();
     MonthText[0] = "January";
@@ -138,14 +147,17 @@ var ProdYieldChart = React.createClass({
     MonthText[10] = "November";
     MonthText[11] = "December";
 
-    var BarLabel = "";
 
+    // Find number of unique failures in Years, Months, or Days to make the bar
+    // chart more readable depending on the range selected
+
+    var BarTitle = "";
     var DateArrayFormatted = [];
     var BarFailures = [];
     k = 0;
 
     if ((numYears > 1) && (numMonths === 12)) {
-      BarLabel = "Year";
+      BarTitle = "Failures Per Year";
 
       for(i=0; i<numYears; i++) {
 
@@ -159,7 +171,7 @@ var ProdYieldChart = React.createClass({
       }
     }
     else if (numDays >= 45) {
-      BarLabel = "Month";
+      BarTitle = "Failures Per Month";
 
       for(i=0; i<numMonths; i++) {
 
@@ -173,9 +185,9 @@ var ProdYieldChart = React.createClass({
       }
     }
     else {
-      BarLabel = "Day";
+      BarTitle = "Failures Per Day";
 
-      for(i=0; i<numDays; i++) {
+      for(i=0; i<=numDays; i++) {
 
         DateArray[i] = new Date();
         DateArray[i].setTime(startDateData.getTime() + i*Day);
@@ -192,11 +204,7 @@ var ProdYieldChart = React.createClass({
       }
     }
 
-
-
-    console.log("Date Array is: ", DateArrayFormatted)
-
-  //  console.log("StartTime: ", startDateData.getTime(), " FinishTime: ", finishDateData.getTime(), " Num Days = ", numDays)
+    // Find failures for the pie chart (could probably be combined with the bar chart)
 
     k=0;
     var FailArray = [];
@@ -216,11 +224,12 @@ var ProdYieldChart = React.createClass({
       }
     }
 
+    // Creat the labels for the Pie Chart
 
     var PassLabel = "Pass: " + Math.round((Pass/(Pass+Fail))*100) + "%"
     var FailLabel = "Fail: " + Math.round((Fail/(Pass+Fail))*100) + "%"
 
-    var data = {
+    var pieData = {
       labels: [
         PassLabel,
         FailLabel
@@ -240,13 +249,12 @@ var ProdYieldChart = React.createClass({
       ]
     }
 
-    var ChartOptions = {}
+    var pieOptions = {}
 
     var barData = {
       labels: DateArrayFormatted,
       datasets: [
         {
-          label: BarLabel,
           backgroundColor: 'rgba(255,99,132,0.2)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
@@ -260,6 +268,13 @@ var ProdYieldChart = React.createClass({
 
     var barOptions = {
       maintainAspectRatio: true,
+      legend: {
+          display: false
+      },
+      title: {
+          display: true,
+          text: BarTitle
+      },
       scales: {
         xAxes: [{
           ticks: {
@@ -289,7 +304,7 @@ var ProdYieldChart = React.createClass({
             <h2 className="results">End: <input type="text" name="finishDate" className="form-control" value={this.state.tempFinish} onChange={this.handleChangeDate2}/>&nbsp; </h2>
           </form>
           <br />
-          <h2 className="results">Product: {this.state.query}</h2>
+          <h2 className="results">Product: {testCase}</h2>
           <h2 className="results">Date Range: {this.state.startDate + " to " + this.state.finishDate}</h2>
           <h2 className="results">Total Units Tested: {Math.round(Pass+Fail)}</h2>
           <h2 className="results">Units Passed: {Math.round(Pass)}</h2>
@@ -303,7 +318,7 @@ var ProdYieldChart = React.createClass({
           </ul>
         </div>
         <div className="map col-sm-8">
-          <Pie data={data} height={150} options={ChartOptions} />
+          <Pie data={pieData} height={150} options={pieOptions} />
           <br />
           <Bar data={barData} height={150} options={barOptions} />
         </div>
