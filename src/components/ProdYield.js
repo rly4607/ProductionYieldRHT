@@ -12,6 +12,9 @@ import 'react-dropdown/style.css'
 var YieldData = require('../data/ProductionYields.json')
 
 var ProdYieldChart = React.createClass({
+
+  // This handles the change in seleted Product (AY03- whatever)
+
   handleChange: function(event) {
     this.setState({
       query: event.value
@@ -39,10 +42,10 @@ var ProdYieldChart = React.createClass({
   getInitialState: function() {
     return {
       query: "Loading...",
-      startDate: "1/1/2010",
-      finishDate: "1/1/2020",
-      tempStart: "1/1/2010",
-      tempFinish: "1/1/2020"
+      startDate: "1/1/2014",
+      finishDate: "4/30/2017",
+      tempStart: "1/1/2014",
+      tempFinish: "4/30/2017"
     }
   },
   render: function() {
@@ -98,24 +101,100 @@ var ProdYieldChart = React.createClass({
     var finishDateData = new Date(this.state.finishDate)
 
     const Day = 86400000;
-    var numDays = (finishDateData.getTime()-startDateData.getTime())/Day;
+    const Month = Day*31;
+    const Year = Day*366;
+    var numDays = Math.round((finishDateData.getTime()-startDateData.getTime())/Day);
 
-    var DateArray = []
-    var BarFailures = []
-    k = 0;
+    var DateArray = [];
+    var MonthArray = [];
+    var YearArray = [];
 
     for (i=0; i<=numDays; i++) {
-      DateArray[i] = new Date();
-      DateArray[i].setTime(startDateData.getTime() + i*Day);
-      BarFailures[i] = 0;
-      for(k=0; k<FilteredData.length; k++) {
-        if((DateArray[i].getTime() === FilteredData[k].DateData.getTime()) && (FilteredData[k]["Pass / Fail"] === 'Fail') && (FilteredData[k]["Part Number"] === testCase)) {
-          BarFailures[i]++;
+         DateArray[i] = new Date();
+         DateArray[i].setTime(startDateData.getTime() + i*Day);
+         MonthArray[i] = DateArray[i].getMonth();
+         YearArray[i] = DateArray[i].getYear();
+    }
+
+    var YearUnique = YearArray.unique();
+    var MonthUnique = MonthArray.unique();
+
+    var numYears = YearUnique.length;
+    var numMonths = MonthUnique.length;
+
+    console.log("Number of years: ", numYears, "Number of Months: ", numMonths, "Number of Days: ", numDays)
+
+    var MonthText= new Array();
+    MonthText[0] = "January";
+    MonthText[1] = "February";
+    MonthText[2] = "March";
+    MonthText[3] = "April";
+    MonthText[4] = "May";
+    MonthText[5] = "June";
+    MonthText[6] = "July";
+    MonthText[7] = "August";
+    MonthText[8] = "September";
+    MonthText[9] = "October";
+    MonthText[10] = "November";
+    MonthText[11] = "December";
+
+    var BarLabel = "";
+
+    var DateArrayFormatted = [];
+    var BarFailures = [];
+    k = 0;
+
+    if ((numYears > 1) && (numMonths === 12)) {
+      BarLabel = "Year";
+
+      for(i=0; i<numYears; i++) {
+
+        DateArrayFormatted[i] = YearUnique[i]+1900;
+        BarFailures[i] = 0;
+        for(k=0; k<FilteredData.length; k++) {
+          if((YearUnique[i] === FilteredData[k].DateData.getYear()) && (FilteredData[k]["Pass / Fail"] === 'Fail') && (FilteredData[k]["Part Number"] === testCase) && (FilteredData[k].DateData.getTime() >= startDateData.getTime()) && (FilteredData[k].DateData.getTime() <= finishDateData.getTime())) {
+            BarFailures[i]++;
+          }
+        }
+      }
+    }
+    else if (numDays >= 45) {
+      BarLabel = "Month";
+
+      for(i=0; i<numMonths; i++) {
+
+        DateArrayFormatted[i] = MonthText[MonthUnique[i]];
+        BarFailures[i] = 0;
+        for(k=0; k<FilteredData.length; k++) {
+          if((MonthUnique[i] === FilteredData[k].DateData.getMonth()) && (FilteredData[k]["Pass / Fail"] === 'Fail') && (FilteredData[k]["Part Number"] === testCase) && (FilteredData[k].DateData.getTime() >= startDateData.getTime()) && (FilteredData[k].DateData.getTime() <= finishDateData.getTime())) {
+            BarFailures[i]++;
+          }
+        }
+      }
+    }
+    else {
+      BarLabel = "Day";
+
+      for(i=0; i<numDays; i++) {
+
+        DateArray[i] = new Date();
+        DateArray[i].setTime(startDateData.getTime() + i*Day);
+
+        DateArrayFormatted[i] = MonthText[DateArray[i].getMonth()].slice(0,3) + " " + DateArray[i].getDate();
+
+        BarFailures[i] = 0;
+        for(k=0; k<FilteredData.length; k++) {
+          if((DateArray[i].getTime() === FilteredData[k].DateData.getTime()) && (FilteredData[k]["Pass / Fail"] === 'Fail') && (FilteredData[k]["Part Number"] === testCase) && (FilteredData[k].DateData.getTime() >= startDateData.getTime()) && (FilteredData[k].DateData.getTime() <= finishDateData.getTime())) {
+            BarFailures[i]++;
+          }
+
         }
       }
     }
 
-    window.DateArray = DateArray
+
+
+    console.log("Date Array is: ", DateArrayFormatted)
 
   //  console.log("StartTime: ", startDateData.getTime(), " FinishTime: ", finishDateData.getTime(), " Num Days = ", numDays)
 
@@ -164,10 +243,10 @@ var ProdYieldChart = React.createClass({
     var ChartOptions = {}
 
     var barData = {
-      labels: DateArray,
+      labels: DateArrayFormatted,
       datasets: [
         {
-          label: 'Date',
+          label: BarLabel,
           backgroundColor: 'rgba(255,99,132,0.2)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
@@ -184,7 +263,13 @@ var ProdYieldChart = React.createClass({
       scales: {
         xAxes: [{
           ticks: {
-            fontSize: 7
+            fontSize: 10
+          }
+        }],
+        yAxes: [{
+          ticks: {
+              min: 0,
+              stepSize: 1
           }
         }]
       }
