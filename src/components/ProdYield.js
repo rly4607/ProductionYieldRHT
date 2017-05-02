@@ -44,9 +44,9 @@ var ProdYieldChart = React.createClass({
 
     return {
       query: "Loading...",
-      startDate: "1/1/2014",
+      startDate: "1/1/2015",
       finishDate: TodaysDate.getMonth()+1 + "/" + TodaysDate.getDate() + "/" + (TodaysDate.getYear()+1900),
-      tempStart: "1/1/2014",
+      tempStart: "1/1/2015",
       tempFinish: TodaysDate.getMonth()+1 + "/" + TodaysDate.getDate() + "/" + (TodaysDate.getYear()+1900),
     }
   },
